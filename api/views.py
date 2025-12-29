@@ -17,6 +17,7 @@ from rest_framework.throttling import ScopedRateThrottle
 from .throttles import HourlyUserThrottle , HourlyAnonRateThrottle
 from rest_framework_simplejwt.tokens import RefreshToken
 from .pagination import ProfilePagination
+from .filters import ProfileFilter
 # Create your views here.
 
 class ProfileViewSet(ModelViewSet):
@@ -28,11 +29,13 @@ class ProfileViewSet(ModelViewSet):
         SearchFilter,
         DjangoFilterBackend,
         OrderingFilter,]
+    filterset_class = ProfileFilter
     pagination_class = ProfilePagination
 
     filterset_fields = ['age', 'name', 'email']
     search_fields = ['name', 'email']
-    ordering_fields = ['age']
+    ordering_fields = ['age', 'name', 'user']
+    ordering = ('age')
     throttle_classes = [HourlyUserThrottle,
                         HourlyAnonRateThrottle]
     thorttle_scope = 'profile'
