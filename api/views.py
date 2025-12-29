@@ -24,11 +24,15 @@ class ProfileViewSet(ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    filter_backends = [SearchFilter]
+    filter_backends = [
+        SearchFilter,
+        DjangoFilterBackend,
+        OrderingFilter,]
     pagination_class = ProfilePagination
+
     filterset_fields = ['age', 'name', 'email']
     search_fields = ['name', 'email']
-    # ordering_fields = ['age']
+    ordering_fields = ['age']
     throttle_classes = [HourlyUserThrottle,
                         HourlyAnonRateThrottle]
     thorttle_scope = 'profile'
