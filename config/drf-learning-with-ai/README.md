@@ -1,1 +1,0 @@
-# drf-learning-with-ai

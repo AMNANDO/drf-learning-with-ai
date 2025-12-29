@@ -18,6 +18,7 @@ from .throttles import HourlyUserThrottle , HourlyAnonRateThrottle
 from rest_framework_simplejwt.tokens import RefreshToken
 from .pagination import ProfilePagination
 from .filters import ProfileFilter
+from .exceptions import ProfileInActive
 # Create your views here.
 
 class ProfileViewSet(ModelViewSet):
@@ -39,6 +40,12 @@ class ProfileViewSet(ModelViewSet):
     throttle_classes = [HourlyUserThrottle,
                         HourlyAnonRateThrottle]
     thorttle_scope = 'profile'
+
+    def retrieve(self, request, *args, **kwargs):
+        profile = self.get_object()
+        if not profile.isActive:
+            raise ProfileInActive()
+        return super().retrieve(request, *args, **kwargs)
 
 
 

@@ -145,7 +145,9 @@ REST_FRAMEWORK = {
         "user":"100/minute",
         "hourly_user":"20/minute",
         "hourly_anon":"5/minute",
-    }
+    },
+    "EXCEPTION_HANDLER":
+        'api.exceptions.custom_exception_handler',
 }
 CASHES = {
     'default': {
