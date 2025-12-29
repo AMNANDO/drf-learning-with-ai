@@ -12,7 +12,7 @@ from rest_framework import status , generics
 from rest_framework.permissions import IsAuthenticated , IsAuthenticatedOrReadOnly, AllowAny
 from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter
+from rest_framework.filters import OrderingFilter , SearchFilter
 from rest_framework.throttling import ScopedRateThrottle
 from .throttles import HourlyUserThrottle , HourlyAnonRateThrottle
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -24,12 +24,11 @@ class ProfileViewSet(ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    filter_backends = [
-        DjangoFilterBackend,
-        OrderingFilter]
+    filter_backends = [SearchFilter]
     pagination_class = ProfilePagination
-    filterset_fields = ['age']
-    ordering_fields = ['age']
+    filterset_fields = ['age', 'name', 'email']
+    search_fields = ['name', 'email']
+    # ordering_fields = ['age']
     throttle_classes = [HourlyUserThrottle,
                         HourlyAnonRateThrottle]
     thorttle_scope = 'profile'
