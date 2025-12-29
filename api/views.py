@@ -19,9 +19,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .pagination import ProfilePagination
 from .filters import ProfileFilter
 from .exceptions import ProfileInActive
+from .responses import ResponseMixin
 # Create your views here.
 
-class ProfileViewSet(ModelViewSet):
+class ProfileViewSet(ResponseMixin, ModelViewSet):
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -42,10 +43,11 @@ class ProfileViewSet(ModelViewSet):
     thorttle_scope = 'profile'
 
     def retrieve(self, request, *args, **kwargs):
-        profile = self.get_object()
-        if not profile.isActive:
-            raise ProfileInActive()
-        return super().retrieve(request, *args, **kwargs)
+        instance = self.get_object()
+        if not instance.isActive:
+            return self.error_response(message="Profile not active", code="inActive Profile", status=403)
+        serializer = self.get_serializer(instance)
+        return self.success_response(data=serializer.data, status=200)
 
 
 
