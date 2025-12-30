@@ -190,5 +190,7 @@ class ProfileTests(APITestCase):
     def test_retrieve_inActive_profile(self):
         response = self.client.get('/api/profile/2/')
         self.assertEqual(response.status_code, 403)
+        self.assertIn("error",response.data)
+        self.assertFalse(response.data['success'])
         print('retrieve inactive profile\n')
         print(response.status_code,'\n', response.data)
