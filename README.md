@@ -30,3 +30,44 @@ This project is intentionally simple and designed for incremental learning and e
 | **Git & GitHub** | Version control and project hosting |
 
 ---
+## 📁 Project Structure
+drf-learning-with-ai/
+#### │
+#### ├── api/
+#### │   ├── models.py         # Item model
+#### │   ├── serializers.py    # Item serializer
+#### │   ├── views.py          # ItemViewSet (CRUD)
+#### │   ├── urls.py           # API routes
+#### │   └── ...
+#### │
+#### ├── config/
+#### │   ├── settings.py       # Django & DRF settings
+#### │   ├── urls.py           # Root URL configuration
+#### │   └── ...
+#### │
+#### └── manage.py
+
+---
+
+## 🧠 Concepts Covered
+
+- Django models  
+- DRF serializers  
+- ViewSets & Routers  
+- DRF configuration  
+- Clean project structure  
+- Basic CRUD operations  
+
+---
+
+## 🗺 Roadmap
+
+Planned improvements and learning goals:
+
+- [ ] Add a custom exception handler  
+- [ ] Add unit tests  
+- [ ] Add API documentation (Swagger / drf-spectacular)  
+- [ ] Add pagination  
+- [ ] Add permissions & authentication  
+- [ ] Add Docker support  
+- [ ] Add CI/CD workflow  
